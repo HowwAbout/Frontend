@@ -2,6 +2,7 @@ import React from "react";
 import "./EditPlanHeader.css";
 import DefaultImage_Small from "../../assets/images/DefaultImage_Small.svg";
 import EditButton from "../../assets/icons/EditButton.svg";
+import DeleteButton from "../../assets/icons/DeleteButton.svg";
 
 const EditPlanHeader: React.FC = () => {
   return (
@@ -29,11 +30,18 @@ const EditPlanHeader: React.FC = () => {
                 </p>
               </div>
             </div>
-            <img
-              src={EditButton}
-              alt="Not Found"
-              className="editplan_edit-button"
-            />
+            <div className="editplan_buttons">
+              <img
+                src={DeleteButton}
+                alt="Not Found"
+                className="editplan_delete-button"
+              />
+              <img
+                src={EditButton}
+                alt="Not Found"
+                className="editplan_edit-button"
+              />
+            </div>
           </div>
         </div>
         <img
