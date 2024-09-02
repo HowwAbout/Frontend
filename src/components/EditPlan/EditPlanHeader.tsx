@@ -1,10 +1,17 @@
 import React from "react";
 import "./EditPlanHeader.css";
+import { useNavigate } from "react-router-dom";
 import DefaultImage_Small from "../../assets/images/DefaultImage_Small.svg";
 import EditButton from "../../assets/icons/EditButton.svg";
 import DeleteButton from "../../assets/icons/DeleteButton.svg";
 
 const EditPlanHeader: React.FC = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleEditClick = () => {
+    navigate("/editplan_page"); // Navigate to the desired route
+  };
+
   return (
     <div className="editplan_contents">
       <div className="editplan_dating-schedule-title">
@@ -32,14 +39,15 @@ const EditPlanHeader: React.FC = () => {
             </div>
             <div className="editplan_buttons">
               <img
-                src={DeleteButton}
-                alt="Not Found"
-                className="editplan_delete-button"
-              />
-              <img
                 src={EditButton}
                 alt="Not Found"
                 className="editplan_edit-button"
+                onClick={handleEditClick}
+              />
+              <img
+                src={DeleteButton}
+                alt="Not Found"
+                className="editplan_delete-button"
               />
             </div>
           </div>

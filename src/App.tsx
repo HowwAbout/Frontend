@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import MenuBar from "./components/Menubar";
 import Header from "./components/Header";
 import PlanList from "./components/PlanList";
@@ -47,25 +46,6 @@ const App: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("schedules", JSON.stringify(schedules));
   }, [schedules]);
-
-  const handleOnDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const items = Array.from(schedules);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setSchedules(items);
-  };
-
-  const addSchedule = () => {
-    const newSchedule: Schedule = {
-      id: (schedules.length + 1).toString(),
-      title: `Dating Schedule Title ${schedules.length + 1}`,
-      date: "2000.01.01",
-      category: "Category",
-      location: "Location",
-    };
-    setSchedules([...schedules, newSchedule]);
-  };
 
   return (
     <div className="app-container">
