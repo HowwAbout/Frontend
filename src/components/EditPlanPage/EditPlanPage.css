@@ -4,3 +4,15 @@
   justify-content: center;
   align-items: center;
 }
+
+.editplanpage_airecommendations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  overflow: hidden; /* Prevents content overflow */
+}
