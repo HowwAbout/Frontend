@@ -1,10 +1,15 @@
 .editplanpage_contents {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between; /* 컴포넌트들 간의 간격을 동일하게 */
+  align-items: stretch; /* 세로 방향으로도 동일하게 맞추기 */
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
+.dateplantitle_container,
+.editplanschedulelist_container,
 .editplanpage_airecommendations {
   display: flex;
   flex-direction: column;
@@ -14,5 +19,10 @@
   height: 100%;
   box-sizing: border-box;
   padding: 16px;
-  overflow: hidden; /* Prevents content overflow */
+}
+
+.editplanpage_airecommendations {
+  flex: 1; /* 모든 컴포넌트들이 동일한 비율로 너비를 차지하도록 설정 */
+  box-sizing: border-box;
+  padding: 16px;
 }
