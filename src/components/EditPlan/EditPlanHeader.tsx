@@ -1,9 +1,9 @@
 import React from "react";
 import "./EditPlanHeader.css";
 import DefaultImage_Small from "../../assets/images/DefaultImage_Small.svg";
-import Favorite_Gray from "../../assets/icons/Favorite_Gray.svg";
+import EditButton from "../../assets/icons/EditButton.svg";
 
-export default function Contents() {
+const EditPlanHeader: React.FC = () => {
   return (
     <div className="editplan_contents">
       <div className="editplan_dating-schedule-title">
@@ -30,9 +30,9 @@ export default function Contents() {
               </div>
             </div>
             <img
-              src={Favorite_Gray}
+              src={EditButton}
               alt="Not Found"
-              className="editplan_trailing-element"
+              className="editplan_edit-button"
             />
           </div>
         </div>
@@ -44,4 +44,6 @@ export default function Contents() {
       </div>
     </div>
   );
-}
+};
+
+export default EditPlanHeader;

@@ -1,40 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
+import EditPlanHeader from "../EditPlan/EditPlanHeader";
+import EditPlanList from "../EditPlan/EditPlanList";
 import "./EditPlanModal.css";
 
-interface ModalProps {
-  children: React.ReactNode;
-  isOpen: boolean;
+interface EditPlanModalProps {
+  data: any;
   onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      const modal = document.getElementById("editplan_modal-content");
-      if (modal && !modal.contains(event.target as Node)) {
-        onClose();
-      }
-    };
+const EditPlanModal: React.FC<EditPlanModalProps> = ({ data, onClose }) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClose();
+  };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isOpen, onClose]);
-  if (!isOpen) return null;
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 모달 콘텐츠 내부 클릭 시에는 모달이 닫히지 않도록 이벤트 전파를 막음
+  };
 
   return (
-    <div className="editplan_modal-overlay">
-      <div className="editplan_modal-content" id="editplan_modal-content">
-        {children}
+    <div className="editplan_modal-overlay" onClick={handleOverlayClick}>
+      <div className="editplan_modal-content" onClick={handleContentClick}>
+        <EditPlanHeader />
+        <EditPlanList />
       </div>
     </div>
   );
 };
 
-export default Modal;
+export default EditPlanModal;
