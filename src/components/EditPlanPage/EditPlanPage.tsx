@@ -1,10 +1,10 @@
 import React from "react";
+import DatePlanTitle from "../EditPlanPage/DatePlanTitle";
 
 const EditPlanPage: React.FC = () => {
   return (
     <div>
-      <h1>Edit Plan</h1>
-      {/* Add your form or content here */}
+      <DatePlanTitle></DatePlanTitle>
     </div>
   );
 };
