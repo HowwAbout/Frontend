@@ -7,7 +7,7 @@ const PostRequestComponent: React.FC = () => {
   // POST 요청을 보내는 함수
   const sendPostRequest = async () => {
     try {
-      const url = "http://3.36.227.72:8080/dateActivities"; // 실제 API URL로 변경하세요
+      const url = "http://3.36.227.72:8080/api/dateActivities"; // 실제 API URL로 변경하세요
       const data = {
         key1: "value1",
         key2: "value2",
