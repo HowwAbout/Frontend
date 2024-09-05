@@ -17,7 +17,7 @@ const PostRequestComponent: React.FC = () => {
         image: "미정",
       };
       // Axios로 POST 요청
-      const response = await axios.post(url);
+      const response = await axios.post(url, data);
 
       // 성공적으로 응답받은 데이터를 상태에 저장
       setResponseData(JSON.stringify(response.data, null, 2));
