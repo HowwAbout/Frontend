@@ -3,9 +3,17 @@ import "./AIRecommendationItem.css";
 import PlusIcon from "../../assets/icons/PlusIcon.svg";
 import Horizontal_Triangle from "../../assets/icons/Horizontal_Triangle.svg";
 
-const ListItem01: React.FC<{ content: string }> = ({ content }) => {
+type AIRecommendationItemProps = {
+  content: string;
+  onClick?: () => void; // Make sure to add this line
+};
+
+const ListItem01: React.FC<AIRecommendationItemProps> = ({
+  content,
+  onClick,
+}) => {
   return (
-    <div className="airecommendationitem_list-item-01">
+    <div className="airecommendationitem_list-item-01" onClick={onClick}>
       <div className="airecommendationitem_text-and-image">
         <div className="airecommendationitem_content">
           <div className="airecommendationitem_title-description">

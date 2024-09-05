@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EditPlanScheduleItem from "./EditPlanScheduleItem"; // Adjust the import path as necessary
 import "./EditPlanScheduleList.css"; // Ensure to style the list if needed
 import AddSchedule from "./AddSchedule";
+import AddScheduleModal from "../AddScheduleModal/AddScheduleModal";
 
-const AIRecommendationList: React.FC<{
+interface ScheduleItem {
+  id: string;
+  content: string;
+}
+
+const EditPlanScheduleList: React.FC<{
   items: Array<{ id: string; content: string }>;
 }> = ({ items }) => {
+  const [schedules, setSchedules] = useState<ScheduleItem[]>([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<ScheduleItem | null>(null);
+
+  useEffect(() => {
+    const storedPlans = JSON.parse(
+      localStorage.getItem("schedules") || "[]"
+    ) as ScheduleItem[];
+    setSchedules(storedPlans);
+  }, []);
+
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 
@@ -14,8 +31,17 @@ const AIRecommendationList: React.FC<{
     const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, reorderedItem);
 
-    // Here you would typically set state with the reordered items
-    // setItems(reorderedItems);
+    setSchedules(reorderedItems);
+  };
+
+  const handleItemClick = (schedule: ScheduleItem) => {
+    setModalData(schedule);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalData(null);
   };
 
   return (
@@ -24,15 +50,25 @@ const AIRecommendationList: React.FC<{
         <Droppable droppableId="editplanschedule-list">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {items.map(({ id, content }, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided) => (
+              {items.map((schedule, index) => (
+                <Draggable
+                  key={schedule.id}
+                  draggableId={schedule.id}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      className={`plan-item ${
+                        snapshot.isDragging ? "dragging" : ""
+                      }`}
                     >
-                      <EditPlanScheduleItem content={content} />
+                      <EditPlanScheduleItem
+                        content={schedule.content}
+                        onClick={() => handleItemClick(schedule)}
+                      />
                     </div>
                   )}
                 </Draggable>
@@ -43,8 +79,14 @@ const AIRecommendationList: React.FC<{
         </Droppable>
       </DragDropContext>
       <AddSchedule />
+      {isModalOpen && (
+        <AddScheduleModal
+          data={modalData}
+          onClose={closeModal}
+        ></AddScheduleModal>
+      )}
     </div>
   );
 };
 
-export default AIRecommendationList;
+export default EditPlanScheduleList;

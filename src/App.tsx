@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Axios } from "axios";
 import MenuBar from "./components/Menubar";
 import Header from "./components/Header";
 import PlanList from "./components/PlanList";
 import Sidebar from "./components/Sidebar";
 import { Schedule } from "./types/Schedule";
 import "./styles/App.css";
+import API from "./components/API";
 
 const initialSchedules: Schedule[] = [
   {
@@ -48,14 +50,15 @@ const App: React.FC = () => {
   }, [schedules]);
 
   return (
-    <div className="app-container">
-      <Sidebar />
-      <div className="main-content">
-        <MenuBar />
-        <Header />
-        <PlanList />
-      </div>
-    </div>
+    // <div className="app-container">
+    //   <Sidebar />
+    //   <div className="main-content">
+    //     <MenuBar />
+    //     <Header />
+    //     <PlanList />
+    //   </div>
+    // </div>
+    <API></API>
   );
 };
 

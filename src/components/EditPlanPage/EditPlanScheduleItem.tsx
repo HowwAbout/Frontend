@@ -3,9 +3,17 @@ import "./EditPlanScheduleItem.css";
 import MinusIcon from "../../assets/icons/MinusIcon.svg";
 import Horizontal_Triangle from "../../assets/icons/Horizontal_Triangle.svg";
 
-const ListItem01: React.FC<{ content: string }> = ({ content }) => {
+type EditPlanScheduleItemProps = {
+  content: string;
+  onClick?: () => void; // Make sure to add this line
+};
+
+const ListItem01: React.FC<EditPlanScheduleItemProps> = ({
+  content,
+  onClick,
+}) => {
   return (
-    <div className="editplanscheduleitem_list-item-01">
+    <div className="editplanscheduleitem_list-item-01" onClick={onClick}>
       <div className="editplanscheduleitem_text-and-image">
         <div className="editplanscheduleitem_content">
           <div className="editplanscheduleitem_title-description">
