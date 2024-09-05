@@ -7,7 +7,7 @@ const PostRequestComponent: React.FC = () => {
   // POST 요청을 보내는 함수
   const sendPostRequest = async () => {
     try {
-      const url = "http://43.201.61.229:8080/api/dateActivities"; // 실제 API URL로 변경하세요
+      const url = "http://43.201.61.229/api/dateActivities"; // 실제 API URL로 변경하세요
       const data = {
         title: "성수동 분위기 좋은 와인바 가기",
         location: "서울 성동구 연무장17길 5 4층",
