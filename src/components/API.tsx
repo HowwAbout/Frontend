@@ -7,12 +7,15 @@ const PostRequestComponent: React.FC = () => {
   // POST 요청을 보내는 함수
   const sendPostRequest = async () => {
     try {
-      const url = "http://3.36.227.72:8080/dateActivities"; // 실제 API URL로 변경하세요
+      const url = "http://3.36.227.72:8080/api/dateActivities"; // 실제 API URL로 변경하세요
       const data = {
-        key1: "value1",
-        key2: "value2",
+        title: "성수동 분위기 좋은 와인바 가기",
+        location: "서울 성동구 연무장17길 5 4층",
+        durationTime: "1시간 30분",
+        description:
+          "분위기 좋은 성수동에 위치한 엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
+        image: "미정",
       };
-
       // Axios로 POST 요청
       const response = await axios.post(url);
 
