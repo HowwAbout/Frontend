@@ -3,6 +3,7 @@ import { Axios } from "axios";
 import MenuBar from "./components/Menubar";
 import Header from "./components/Header";
 import PlanList from "./components/PlanList";
+import PlanListAPI from "./components/PlanListAPI";
 import Sidebar from "./components/Sidebar";
 import { Schedule } from "./types/Schedule";
 import "./styles/App.css";
@@ -55,7 +56,8 @@ const App: React.FC = () => {
       <div className="main-content">
         <MenuBar />
         <Header />
-        <PlanList />
+        <PlanListAPI />
+        {/* <PlanList /> */}
       </div>
     </div>
   );
