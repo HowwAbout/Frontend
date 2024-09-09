@@ -28,17 +28,26 @@ interface DatePlan {
   };
 }
 
+const API_BASE_URL = "http://54.180.237.221:8080";
+
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // 모달 상태
   const [modalData, setModalData] = useState<DatePlan | null>(null); // 모달에 넘길 데이터
 
+  const [planData, setPlanData] = useState({
+    title: "",
+    date: "",
+    description: "",
+    image: "",
+  });
+
   useEffect(() => {
     const fetchDatePlans = async () => {
       try {
         const response = await axios.get<DatePlan[]>(
-          "http://43.201.61.229/api/date-plans/"
+          `${API_BASE_URL}/api/date-plans/`
         );
         setPlans(response.data);
       } catch (error) {
@@ -71,9 +80,32 @@ const PlanListAPI: React.FC = () => {
     setModalData(null);
   };
 
-  const handleAddPlan = () => {
-    // 새로운 플랜 추가 로직 구현
-    console.log("플랜 추가 버튼 클릭됨");
+  const handleAddPlan = async () => {
+    const payload = {
+      title: planData.title,
+      date: planData.date,
+      description: planData.description,
+      image: planData.image,
+    };
+
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/date-plans`,
+        payload
+      );
+      if (response.status === 201) {
+        console.log("Plan added successfully:", response.data);
+        // Optionally reset form fields after submission
+        setPlanData({
+          title: "",
+          date: "",
+          description: "",
+          image: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding plan:", error);
+    }
   };
 
   if (loading) {
