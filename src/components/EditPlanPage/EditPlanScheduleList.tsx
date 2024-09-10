@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EditPlanScheduleItem from "./EditPlanScheduleItem"; // Adjust the import path as necessary
 import "./EditPlanScheduleList.css"; // Ensure to style the list if needed
 import AddSchedule from "./AddSchedule";
-import AddScheduleModal from "../AddScheduleModal/AddScheduleModal";
+import AddScheduleModalDelete from "../AddScheduleModal/AddScheduleModal_Delete";
 
 interface ScheduleItem {
   id: string;
@@ -19,7 +19,7 @@ const EditPlanScheduleList: React.FC<{
 
   useEffect(() => {
     const storedPlans = JSON.parse(
-      localStorage.getItem("schedules") || "[]"
+      localStorage.getItem("plans") || "[]"
     ) as ScheduleItem[];
     setSchedules(storedPlans);
   }, []);
@@ -42,6 +42,10 @@ const EditPlanScheduleList: React.FC<{
   const closeModal = () => {
     setModalOpen(false);
     setModalData(null);
+  };
+
+  const OpenAddModal = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -78,12 +82,12 @@ const EditPlanScheduleList: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
-      <AddSchedule />
+      <AddSchedule onClick={OpenAddModal} />
       {isModalOpen && (
-        <AddScheduleModal
+        <AddScheduleModalDelete
           data={modalData}
           onClose={closeModal}
-        ></AddScheduleModal>
+        ></AddScheduleModalDelete>
       )}
     </div>
   );

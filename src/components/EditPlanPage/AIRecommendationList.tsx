@@ -20,10 +20,10 @@ const EditPlanScheduleList: React.FC<{
   const [modalData, setModalData] = useState<RecommendationItem | null>(null);
 
   useEffect(() => {
-    const storedPlans = JSON.parse(
-      localStorage.getItem("schedules") || "[]"
+    const storedRecommendations = JSON.parse(
+      localStorage.getItem("recommendations") || "[]"
     ) as RecommendationItem[];
-    setRecommendations(storedPlans);
+    setRecommendations(storedRecommendations);
   }, []);
 
   const handleOnDragEnd = (result: any) => {
