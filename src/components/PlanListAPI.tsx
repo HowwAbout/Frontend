@@ -47,7 +47,7 @@ const PlanListAPI: React.FC = () => {
     const fetchDatePlans = async () => {
       try {
         const response = await axios.get<DatePlan[]>(
-          `${API_BASE_URL}/api/date-plans/`
+          `${API_BASE_URL}/api/date-plans`
         );
         setPlans(response.data);
       } catch (error) {
