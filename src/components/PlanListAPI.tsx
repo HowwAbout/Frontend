@@ -28,7 +28,7 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "http://3.36.227.72:8080";
+const API_BASE_URL = "http://3.35.149.55";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
@@ -95,13 +95,6 @@ const PlanListAPI: React.FC = () => {
       );
       if (response.status === 201) {
         console.log("Plan added successfully:", response.data);
-        // Optionally reset form fields after submission
-        setPlanData({
-          title: "",
-          date: "",
-          description: "",
-          image: "",
-        });
       }
     } catch (error) {
       console.error("Error adding plan:", error);
