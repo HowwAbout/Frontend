@@ -5,38 +5,48 @@ import "./AIRecommendationList.css"; // Ensure to style the list if needed
 import AddSchedule from "./AddSchedule";
 import AddScheduleModal from "../AddScheduleModal/AddScheduleModal";
 
-interface RecommendationItem {
-  id: string;
-  content: string;
+interface AIRecommendationListProps {
+  activityDescription: string;
+  activityImage: string;
+  activityLocation: string;
+  activityTitle: string;
+  timeTotal: string;
 }
 
-const EditPlanScheduleList: React.FC<{
-  items: Array<{ id: string; content: string }>;
-}> = ({ items }) => {
-  const [recommendations, setRecommendations] = useState<RecommendationItem[]>(
-    []
-  );
+interface EditPlanScheduleListProps {
+  items: AIRecommendationListProps[];
+}
+
+const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
+  items,
+}) => {
+  const [recommendations, setRecommendations] = useState<
+    AIRecommendationListProps[]
+  >([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modalData, setModalData] = useState<RecommendationItem | null>(null);
+  const [modalData, setModalData] = useState<AIRecommendationListProps | null>(
+    null
+  );
 
   useEffect(() => {
     const storedRecommendations = JSON.parse(
       localStorage.getItem("recommendations") || "[]"
-    ) as RecommendationItem[];
+    ) as AIRecommendationListProps[];
     setRecommendations(storedRecommendations);
   }, []);
 
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 
-    const reorderedItems = Array.from(items);
+    const reorderedItems = Array.from(recommendations); // Use the recommendations state
     const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, reorderedItem);
 
     setRecommendations(reorderedItems);
+    localStorage.setItem("recommendations", JSON.stringify(reorderedItems));
   };
 
-  const handleItemClick = (schedule: RecommendationItem) => {
+  const handleItemClick = (schedule: AIRecommendationListProps) => {
     setModalData(schedule);
     setModalOpen(true);
   };
@@ -52,10 +62,10 @@ const EditPlanScheduleList: React.FC<{
         <Droppable droppableId="airecommendation-list">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {items.map((schedule, index) => (
+              {items.map((item, index) => (
                 <Draggable
-                  key={schedule.id}
-                  draggableId={schedule.id}
+                  key={index}
+                  draggableId={index.toString()}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -68,8 +78,12 @@ const EditPlanScheduleList: React.FC<{
                       }`}
                     >
                       <AIRecommendationItem
-                        content={schedule.content}
-                        onClick={() => handleItemClick(schedule)}
+                        key={index}
+                        id={index.toString()} // Pass index as id
+                        activityTitle={item.activityTitle}
+                        activityDescription={item.activityDescription}
+                        activityLocation={item.activityLocation}
+                        timeTotal={item.timeTotal}
                       />
                     </div>
                   )}

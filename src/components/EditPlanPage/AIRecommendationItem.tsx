@@ -4,12 +4,19 @@ import PlusIcon from "../../assets/icons/PlusIcon.svg";
 import Horizontal_Triangle from "../../assets/icons/Horizontal_Triangle.svg";
 
 type AIRecommendationItemProps = {
-  content: string;
+  id: string;
+  activityTitle: string;
+  activityDescription: string;
+  activityLocation: string;
+  timeTotal: string;
   onClick?: () => void; // Make sure to add this line
 };
 
 const ListItem01: React.FC<AIRecommendationItemProps> = ({
-  content,
+  activityTitle,
+  activityDescription,
+  activityLocation,
+  timeTotal,
   onClick,
 }) => {
   return (
@@ -17,10 +24,9 @@ const ListItem01: React.FC<AIRecommendationItemProps> = ({
       <div className="airecommendationitem_text-and-image">
         <div className="airecommendationitem_content">
           <div className="airecommendationitem_title-description">
-            <p className="airecommendationitem_title">Date Activity Name</p>
+            <p className="airecommendationitem_title">{activityTitle}</p>
             <p className="airecommendationitem_secondary-text">
-              Description duis aute irure dolor in reprehenderit in voluptate
-              velit.
+              {activityDescription}
             </p>
           </div>
           <div className="airecommendationitem_leading-trailing-icons">
@@ -30,9 +36,9 @@ const ListItem01: React.FC<AIRecommendationItemProps> = ({
                 alt="Not Found"
                 className="airecommendationitem_icon"
               />
-              <p className="airecommendationitem_date">Today</p>
+              <p className="airecommendationitem_date">{activityLocation}</p>
               <p className="airecommendationitem_separator">•</p>
-              <p className="airecommendationitem_time">23 min</p>
+              <p className="airecommendationitem_time">{timeTotal}</p>
             </div>
             <img
               src={Horizontal_Triangle}
