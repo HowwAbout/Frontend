@@ -34,7 +34,7 @@ const EditPlanPage: React.FC = () => {
 
   const sendPostRequest = async () => {
     try {
-      const url = "http://3.34.200.137/ai/dating/generate"; // 실제 API URL로 변경하세요
+      const url = "http://3.35.149.55/ai/dating/generate"; // 실제 API URL로 변경하세요
       const data = {
         title: "성북구 분위기 좋은 와인바 가기",
         description:
@@ -46,7 +46,7 @@ const EditPlanPage: React.FC = () => {
 
       const response = await axios.post(url, data, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
       });
       // Assume response.data is an array of AIRecommendationForm items
