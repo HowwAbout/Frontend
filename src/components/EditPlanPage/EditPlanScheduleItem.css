@@ -13,7 +13,8 @@ p {
   align-items: center;
   gap: 4px;
   width: 100%;
-  height: 120px;
+  height: auto; /* 고정 높이를 없애고, 컨텐츠에 맞게 자동 조정 */
+  min-height: 120px; /* 최소 높이는 유지 */
   border-radius: 12px;
   box-sizing: border-box;
 }

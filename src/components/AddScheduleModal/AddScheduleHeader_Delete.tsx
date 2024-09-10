@@ -1,6 +1,7 @@
 import React from "react";
 import EditNoteIcon from "../../assets/icons/EditNoteIcon.svg";
 import ConfirmAndAddtoScheduleButton from "../../assets/icons/ConfirmandAddtoschedulelist.svg";
+import DeleteButton from "../../assets/icons/DeleteButton.svg";
 import "./AddScheduleHeader.css";
 
 export default function TextAndImage() {
@@ -27,7 +28,12 @@ export default function TextAndImage() {
           </div>
         </div>
       </div>
-      <div className="editplan_buttons">
+      <div className="addscheduleheader_buttons">
+        <img
+          src={DeleteButton}
+          alt="Not Found"
+          className="addscheduleheader_delete-button"
+        />
         <img
           src={ConfirmAndAddtoScheduleButton}
           alt="Not Found"
