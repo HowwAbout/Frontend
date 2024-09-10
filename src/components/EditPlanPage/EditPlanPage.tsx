@@ -50,16 +50,16 @@ const EditPlanPage: React.FC = () => {
     { id: string; title: string; durationTime: string; description: string }[]
   >([]);
 
+  const [searchText, setSearchText] = useState("");
+
   const sendPostRequest = async () => {
     try {
       const url = "http://3.35.149.55/ai/dating/generate"; // 실제 API URL로 변경하세요
       const data = {
-        title: "성북구 분위기 좋은 와인바 가기",
-        description:
-          "엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
-        dateTime: "1시간 30분",
-        activityDescription:
-          "분위기 좋은 성북구에 위치한 엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
+        title: datePlan?.title,
+        description: datePlan?.description,
+        dateTime: datePlan?.date,
+        activityDescription: "맛있는 식당",
       };
 
       const response = await axios.post(url, data, {
@@ -96,6 +96,10 @@ const EditPlanPage: React.FC = () => {
     sendPostRequest();
   }, []);
 
+  useEffect(() => {
+    sendPostRequest();
+  }, [searchText]); // Trigger request when searchText changes
+
   return (
     <div className="editplanpage_contents">
       <div className="dateplantitle_container">
@@ -109,7 +113,7 @@ const EditPlanPage: React.FC = () => {
         <EditPlanScheduleList items={schedules} />
       </div>
       <div className="editplanpage_airecommendations">
-        <AIRecommendation />
+        <AIRecommendation onSearchTextChange={setSearchText} />
         <AIRecommendationList items={recommendations} />
       </div>
     </div>

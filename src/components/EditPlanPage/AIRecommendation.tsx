@@ -3,11 +3,17 @@ import "./AIRecommendation.css";
 import RecommendationIcon from "../../assets/icons/RecommendationIcon.svg";
 import SearchIcon from "../../assets/icons/SearchIcon.svg";
 
-export default function SearchBar() {
+interface AIRecommendationProps {
+  onSearchTextChange: (searchText: string) => void;
+}
+
+const SearchBar: React.FC<AIRecommendationProps> = ({ onSearchTextChange }) => {
   const [searchText, setSearchText] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
+    const value = event.target.value;
+    setSearchText(value);
+    onSearchTextChange(value); // Pass the updated searchText to the parent
   };
 
   return (
@@ -38,4 +44,6 @@ export default function SearchBar() {
       </div>
     </div>
   );
-}
+};
+
+export default SearchBar;
