@@ -44,6 +44,10 @@ const EditPlanScheduleList: React.FC<{
     setModalData(null);
   };
 
+  const OpenAddModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className="editplanschedule-list">
       <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -78,7 +82,7 @@ const EditPlanScheduleList: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
-      <AddSchedule />
+      <AddSchedule onClick={OpenAddModal} />
       {isModalOpen && (
         <AddScheduleModalDelete
           data={modalData}

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddSchedule.css";
 import AddActivity from "../../assets/icons/AddActivity.svg";
+import AddScheduleModalDelete from "../AddScheduleModal/AddScheduleModal_Delete";
 
-export default function AddList() {
+interface AddScheduleProps {
+  onClick?: () => void;
+}
+
+const AddList: React.FC<AddScheduleProps> = ({ onClick }) => {
   return (
-    <div className="add-list">
+    <div className="add-list" onClick={onClick}>
       <img src={AddActivity} alt="Not Found" className="forms-add-on" />
       <div className="state-layer">
         <div className="content clip-contents">
@@ -13,4 +18,6 @@ export default function AddList() {
       </div>
     </div>
   );
-}
+};
+
+export default AddList;
