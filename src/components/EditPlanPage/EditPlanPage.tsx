@@ -28,18 +28,20 @@ const schedules = [
 ];
 
 const EditPlanPage: React.FC = () => {
-  const [recommendations, setRecommendations] = useState<AIRecommendationForm[]>([]);
+  const [recommendations, setRecommendations] = useState<
+    AIRecommendationForm[]
+  >([]);
 
   const sendPostRequest = async () => {
     try {
       const url = "http://3.34.200.137/ai/dating/generate"; // 실제 API URL로 변경하세요
       const data = {
-        title: "성수동 분위기 좋은 와인바 가기",
+        title: "성북구 분위기 좋은 와인바 가기",
         description:
-          "분위기 좋은 성수동에 위치한 엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
+          "엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
         dateTime: "1시간 30분",
         activityDescription:
-          "분위기 좋은 성수동에 위치한 엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
+          "분위기 좋은 성북구에 위치한 엔티크 와인 바의 야외 루프탑에서 “옥상 수비드 부채살 스테이크”와 레드와인을 곁들여 즐기기",
       };
 
       const response = await axios.post(url, data);
