@@ -1,6 +1,6 @@
 import React from "react";
 import "./AddScheduleModal.css";
-
+import AddScheduleHeader from "./AddScheduleHeader";
 interface EditPlanModalProps {
   data: any;
   onClose: () => void;
@@ -18,10 +18,9 @@ const EditPlanModal: React.FC<EditPlanModalProps> = ({ data, onClose }) => {
 
   return (
     <div className="addschedule_modal-overlay" onClick={handleOverlayClick}>
-      <div
-        className="addschedule_modal-content"
-        onClick={handleContentClick}
-      ></div>
+      <div className="addschedule_modal-content" onClick={handleContentClick}>
+        <AddScheduleHeader />
+      </div>
     </div>
   );
 };
