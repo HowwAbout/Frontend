@@ -28,7 +28,7 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "http://54.180.237.221:8080";
+const API_BASE_URL = "http://3.36.227.72";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
