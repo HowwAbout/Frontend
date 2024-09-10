@@ -50,6 +50,7 @@ p {
   letter-spacing: 0.3px;
 }
 
+.planlist_date,
 .planlist_supporting-text {
   color: rgba(73, 69, 79, 1);
   font-size: 14px;

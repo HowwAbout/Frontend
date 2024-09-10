@@ -5,11 +5,39 @@ import DefaultImage_Small from "../../assets/images/DefaultImage_Small.svg";
 import EditButton from "../../assets/icons/EditButton.svg";
 import DeleteButton from "../../assets/icons/DeleteButton.svg";
 
-const EditPlanHeader: React.FC = () => {
+interface PlanActivityResponse {
+  planActivityId: number;
+  datePlanId: number;
+  dateActivityResponse: {
+    dateActivityId: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  order: number;
+}
+
+interface DatePlan {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  planActivityResponseList: {
+    planActivities: PlanActivityResponse[];
+  };
+  liked?: boolean; // Adding liked property to DatePlan type
+}
+
+interface EditPlanHeaderProps {
+  data: DatePlan;
+}
+
+const EditPlanHeader: React.FC<EditPlanHeaderProps> = ({ data }) => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleEditClick = () => {
-    navigate("/editplan_page"); // Navigate to the desired route
+    navigate("/editplan_page", { state: { datePlan: data } }); // Navigate to the desired route
   };
 
   return (
@@ -24,17 +52,13 @@ const EditPlanHeader: React.FC = () => {
             />
             <div className="editplan_content">
               <div className="editplan_headline-and-reviews">
-                <p className="editplan_headline">Date Plan Title</p>
+                <p className="editplan_headline">{data.title}</p>
               </div>
               <div className="editplan_supporting-text-1">
                 <div className="editplan_details">
-                  <p className="editplan_category">
-                    2024.08.19 Location (서울) // 추후 개발
-                  </p>
+                  <p className="editplan_category">{data.date}</p>
                 </div>
-                <p className="editplan_supporting-text">
-                  Dating Plan에 대한 한줄 소개
-                </p>
+                <p className="editplan_supporting-text">{data.description}</p>
               </div>
             </div>
             <div className="editplan_buttons">

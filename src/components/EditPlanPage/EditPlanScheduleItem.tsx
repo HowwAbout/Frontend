@@ -4,12 +4,16 @@ import MinusIcon from "../../assets/icons/MinusIcon.svg";
 import Horizontal_Triangle from "../../assets/icons/Horizontal_Triangle.svg";
 
 type EditPlanScheduleItemProps = {
-  content: string;
+  title: string;
+  durationTime: string;
+  description: string;
   onClick?: () => void; // Make sure to add this line
 };
 
 const ListItem01: React.FC<EditPlanScheduleItemProps> = ({
-  content,
+  title,
+  durationTime,
+  description,
   onClick,
 }) => {
   return (
@@ -17,11 +21,8 @@ const ListItem01: React.FC<EditPlanScheduleItemProps> = ({
       <div className="editplanscheduleitem_text-and-image">
         <div className="editplanscheduleitem_content">
           <div className="editplanscheduleitem_title-description">
-            <p className="editplanscheduleitem_title">Date Activity Name</p>
-            <p className="editplanscheduleitem_secondary-text">
-              Description duis aute irure dolor in reprehenderit in voluptate
-              velit.
-            </p>
+            <p className="editplanscheduleitem_title">{title}</p>
+            <p className="editplanscheduleitem_secondary-text">{description}</p>
           </div>
           <div className="editplanscheduleitem_leading-trailing-icons">
             <div className="editplanscheduleitem_leading">
@@ -30,9 +31,7 @@ const ListItem01: React.FC<EditPlanScheduleItemProps> = ({
                 alt="Not Found"
                 className="editplanscheduleitem_icon"
               />
-              <p className="editplanscheduleitem_date">Today</p>
-              <p className="editplanscheduleitem_separator">•</p>
-              <p className="editplanscheduleitem_time">23 min</p>
+              <p className="editplanscheduleitem_date">{durationTime}</p>
             </div>
             <img
               src={Horizontal_Triangle}

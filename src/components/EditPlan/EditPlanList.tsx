@@ -5,23 +5,53 @@ import EditPlanListItem from "./EditPlanListItem";
 // 로컬 스토리지 키
 const LOCAL_STORAGE_KEY = "editPlanListOrder";
 
-const EditPlanList = () => {
-  // 리스트 상태를 초기화
-  const [items, setItems] = useState([
-    { id: "1", content: "Item 1", checked: false },
-    { id: "2", content: "Item 2", checked: false },
-    { id: "3", content: "Item 3", checked: false },
-  ]);
+interface PlanActivityResponse {
+  planActivityId: number;
+  datePlanId: number;
+  dateActivityResponse: {
+    dateActivityId: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  order: number;
+}
 
-  // 로컬 스토리지에서 순서를 불러오기
+interface DatePlan {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  planActivityResponseList: {
+    planActivities: PlanActivityResponse[];
+  };
+  liked?: boolean; // Adding liked property to DatePlan type
+}
+
+interface EditPlanListProps {
+  datePlan: DatePlan;
+}
+
+const EditPlanList: React.FC<EditPlanListProps> = ({ datePlan }) => {
+  // 리스트 상태를 초기화
+  const [items, setItems] = useState<
+    { id: string; title: string; checked: boolean }[]
+  >([]);
+
   useEffect(() => {
-    const savedItems = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY) || "[]"
+    // dateActivityResponse.title을 기반으로 배열 생성
+    const newItems = datePlan.planActivityResponseList.planActivities.map(
+      (activity) => ({
+        id: activity.dateActivityResponse.dateActivityId.toString(),
+        title: activity.dateActivityResponse.title,
+        checked: false,
+      })
     );
-    if (savedItems.length) {
-      setItems(savedItems);
-    }
-  }, []);
+
+    // items 상태 업데이트
+    setItems(newItems);
+  }, [datePlan]);
 
   // 리스트의 순서가 변경되었을 때 호출되는 함수
   const onDragEnd = (result: any) => {
@@ -58,7 +88,7 @@ const EditPlanList = () => {
                     {...provided.dragHandleProps}
                   >
                     <EditPlanListItem
-                      content={item.content}
+                      title={item.title}
                       checked={item.checked}
                       onToggle={() => toggleCheckbox(item.id)}
                     />

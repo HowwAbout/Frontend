@@ -3,8 +3,32 @@ import EditPlanHeader from "../EditPlan/EditPlanHeader";
 import EditPlanList from "../EditPlan/EditPlanList";
 import "./EditPlanModal.css";
 
+interface PlanActivityResponse {
+  planActivityId: number;
+  datePlanId: number;
+  dateActivityResponse: {
+    dateActivityId: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  order: number;
+}
+
+interface DatePlan {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  planActivityResponseList: {
+    planActivities: PlanActivityResponse[];
+  };
+  liked?: boolean; // Adding liked property to DatePlan type
+}
+
 interface EditPlanModalProps {
-  data: any;
+  data: DatePlan | null;
   onClose: () => void;
 }
 
@@ -21,8 +45,8 @@ const EditPlanModal: React.FC<EditPlanModalProps> = ({ data, onClose }) => {
   return (
     <div className="editplan_modal-overlay" onClick={handleOverlayClick}>
       <div className="editplan_modal-content" onClick={handleContentClick}>
-        <EditPlanHeader />
-        <EditPlanList />
+        {data && <EditPlanHeader data={data} />}
+        {data && <EditPlanList datePlan={data} />}
       </div>
     </div>
   );

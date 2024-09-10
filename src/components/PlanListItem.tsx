@@ -3,11 +3,18 @@ import "./PlanListItem.css";
 import DefaultImage_Small from "../assets/images/DefaultImage_Small.svg";
 
 interface PlanListItemProps {
-  content: string;
+  title: string;
+  date : string;
+  description: string;
   onClick: () => void;
 }
 
-const PlanListItem: React.FC<PlanListItemProps> = ({ onClick }) => {
+const PlanListItem: React.FC<PlanListItemProps> = ({
+  title,
+  description,
+  date,
+  onClick,
+}) => {
   return (
     <div className="planlist_state-layer" onClick={onClick}>
       <img
@@ -16,9 +23,9 @@ const PlanListItem: React.FC<PlanListItemProps> = ({ onClick }) => {
         className="leading-element"
       />
       <div className="planlist_content">
-        <p className="planlist_headline">Date Plan Title</p>
-        <p className="planlist_category">2000.01.01 Location // 추후 개발</p>
-        <p className="planlist_supporting-text">Dating Plan에 대한 한줄 소개</p>
+        <p className="planlist_headline">{title}</p>
+        <p className="planlist_date">{date}</p>
+        <p className="planlist_supporting-text">{description}</p>
       </div>
     </div>
   );

@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import EditPlanScheduleItem from "./EditPlanScheduleItem"; // Adjust the import path as necessary
-import "./EditPlanScheduleList.css"; // Ensure to style the list if needed
+import EditPlanScheduleItem from "./EditPlanScheduleItem";
+import "./EditPlanScheduleList.css";
 import AddSchedule from "./AddSchedule";
 import AddScheduleModalDelete from "../AddScheduleModal/AddScheduleModal_Delete";
 
-interface ScheduleItem {
+interface EditPlanScheduleItemProps {
   id: string;
-  content: string;
+  title: string;
+  durationTime: string;
+  description: string;
 }
 
-const EditPlanScheduleList: React.FC<{
-  items: Array<{ id: string; content: string }>;
-}> = ({ items }) => {
-  const [schedules, setSchedules] = useState<ScheduleItem[]>([]);
+interface EditPlanScheduleListProps {
+  items: EditPlanScheduleItemProps[];
+}
+
+const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
+  items,
+}) => {
+  const [schedules, setSchedules] = useState<EditPlanScheduleItemProps[]>([]); // Fix type here
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modalData, setModalData] = useState<ScheduleItem | null>(null);
+  const [modalData, setModalData] = useState<EditPlanScheduleItemProps | null>(
+    null
+  ); // Fix type here
 
   useEffect(() => {
     const storedPlans = JSON.parse(
       localStorage.getItem("plans") || "[]"
-    ) as ScheduleItem[];
+    ) as EditPlanScheduleItemProps[];
     setSchedules(storedPlans);
   }, []);
 
@@ -31,11 +39,11 @@ const EditPlanScheduleList: React.FC<{
     const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, reorderedItem);
 
-    setSchedules(reorderedItems);
+    setSchedules(reorderedItems); // Fix type here
   };
 
-  const handleItemClick = (schedule: ScheduleItem) => {
-    setModalData(schedule);
+  const handleItemClick = (schedule: EditPlanScheduleItemProps) => {
+    setModalData(schedule); // Fix type here
     setModalOpen(true);
   };
 
@@ -70,7 +78,9 @@ const EditPlanScheduleList: React.FC<{
                       }`}
                     >
                       <EditPlanScheduleItem
-                        content={schedule.content}
+                        title={schedule.title}
+                        durationTime={schedule.durationTime}
+                        description={schedule.description}
                         onClick={() => handleItemClick(schedule)}
                       />
                     </div>

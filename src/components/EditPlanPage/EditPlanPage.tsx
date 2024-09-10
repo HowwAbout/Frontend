@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./EditPlanPage.css";
 import axios from "axios";
 import DatePlanTitle from "../EditPlanPage/DatePlanTitle";
@@ -14,22 +15,39 @@ interface AIRecommendationForm {
   timeTotal: string;
 }
 
-const schedules = [
-  { id: "1", content: "Schedule 1" },
-  { id: "2", content: "Schedule 2" },
-  { id: "3", content: "Schedule 3" },
-  { id: "4", content: "Schedule 4" },
-  { id: "5", content: "Schedule 5" },
-  { id: "6", content: "Schedule 6" },
-  { id: "7", content: "Schedule 7" },
-  { id: "8", content: "Schedule 8" },
-  { id: "9", content: "Schedule 9" },
-  { id: "10", content: "Schedule 10" },
-];
+interface PlanActivityResponse {
+  planActivityId: number;
+  datePlanId: number;
+  dateActivityResponse: {
+    dateActivityId: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  order: number;
+}
+
+interface DatePlan {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  planActivityResponseList: {
+    planActivities: PlanActivityResponse[];
+  };
+}
 
 const EditPlanPage: React.FC = () => {
+  const location = useLocation();
+  const datePlan = location.state?.datePlan as DatePlan | undefined;
+
   const [recommendations, setRecommendations] = useState<
     AIRecommendationForm[]
+  >([]);
+
+  const [schedules, setSchedules] = useState<
+    { id: string; title: string; durationTime: string; description: string }[]
   >([]);
 
   const sendPostRequest = async () => {
@@ -62,12 +80,17 @@ const EditPlanPage: React.FC = () => {
   };
 
   useEffect(() => {
-    sendPostRequest();
-  }, []);
-
-  useEffect(() => {
-    sendPostRequest();
-  }, []);
+    if (datePlan) {
+      const formattedSchedules =
+        datePlan.planActivityResponseList.planActivities.map((activity) => ({
+          id: activity.dateActivityResponse.dateActivityId.toString(),
+          title: activity.dateActivityResponse.title,
+          durationTime: activity.dateActivityResponse.durationTime,
+          description: activity.dateActivityResponse.description,
+        }));
+      setSchedules(formattedSchedules);
+    }
+  }, [datePlan]);
 
   useEffect(() => {
     sendPostRequest();
@@ -76,7 +99,11 @@ const EditPlanPage: React.FC = () => {
   return (
     <div className="editplanpage_contents">
       <div className="dateplantitle_container">
-        <DatePlanTitle />
+        <DatePlanTitle
+          title={datePlan?.title ?? "Undefined"}
+          date={datePlan?.date ?? "Undefined"}
+          description={datePlan?.description ?? "Undefined"}
+        />
       </div>
       <div className="editplanschedulelist_container">
         <EditPlanScheduleList items={schedules} />

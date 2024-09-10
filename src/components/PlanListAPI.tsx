@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
 import "./PlanList.css";
 import EditPlanModal from "./EditPlan/EditPlanModal"; // 모달 컴포넌트 가져오기
+import PlanListItem from "./PlanListItem";
 import AddPlan from "./AddPlan"; // 플랜 추가 버튼 컴포넌트
+import Favorite_Gray from "../assets/icons/Favorite_Gray.svg";
+import Favorite_Red from "../assets/icons/Favorite_Red.svg";
 
 interface PlanActivityResponse {
   planActivityId: number;
@@ -26,6 +34,7 @@ interface DatePlan {
   planActivityResponseList: {
     planActivities: PlanActivityResponse[];
   };
+  liked?: boolean; // Adding liked property to DatePlan type
 }
 
 const API_BASE_URL = "http://3.35.149.55";
@@ -43,31 +52,46 @@ const PlanListAPI: React.FC = () => {
     image: "",
   });
 
-  useEffect(() => {
-    const fetchDatePlans = async () => {
-      try {
-        const response = await axios.get<DatePlan[]>(
-          `${API_BASE_URL}/api/date-plans`
-        );
-        setPlans(response.data);
-      } catch (error) {
-        console.error("Error fetching date plans:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Fetching plans and making it reusable across the component
+  const fetchDatePlans = async () => {
+    setLoading(true); // Set loading to true before fetching data
+    try {
+      const response = await axios.get<DatePlan[]>(
+        `${API_BASE_URL}/api/date-plans`
+      );
+      setPlans(response.data);
+    } catch (error) {
+      console.error("Error fetching date plans:", error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching data
+    }
+  };
 
+  // Call fetchDatePlans when the component mounts
+  useEffect(() => {
     fetchDatePlans();
   }, []);
 
-  const handleOnDragEnd = (result: any) => {
+  const handleItemClick = (plan: DatePlan) => {
+    setModalData(plan);
+    setIsModalOpen(true);
+  };
+
+  const handleToggleLike = (id: number) => {
+    const updatedPlans = plans.map((plan) =>
+      plan.id === id ? { ...plan, liked: !plan.liked } : plan
+    );
+    setPlans(updatedPlans);
+  };
+
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
-    const items = Array.from(plans);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    const newPlans = Array.from(plans);
+    const [movedPlan] = newPlans.splice(result.source.index, 1);
+    newPlans.splice(result.destination.index, 0, movedPlan);
 
-    setPlans(items);
+    setPlans(newPlans);
   };
 
   const openModal = (plan: DatePlan) => {
@@ -82,10 +106,10 @@ const PlanListAPI: React.FC = () => {
 
   const handleAddPlan = async () => {
     const payload = {
-      title: planData.title,
-      date: planData.date,
-      description: planData.description,
-      image: planData.image,
+      title: "새 데이트 일정",
+      date: "2024-09-11",
+      description: "새 데이트 일정 설명",
+      image: "image",
     };
 
     try {
@@ -95,6 +119,7 @@ const PlanListAPI: React.FC = () => {
       );
       if (response.status === 201) {
         console.log("Plan added successfully:", response.data);
+        fetchDatePlans(); // Refresh the plans after adding a new one
       }
     } catch (error) {
       console.error("Error adding plan:", error);
@@ -107,8 +132,8 @@ const PlanListAPI: React.FC = () => {
 
   return (
     <div className="plan-list-container">
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="plans">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="planList">
           {(provided) => (
             <div
               className="plan-list"
@@ -117,23 +142,31 @@ const PlanListAPI: React.FC = () => {
             >
               {plans.map((plan, index) => (
                 <Draggable
-                  key={plan.id}
-                  draggableId={String(plan.id)}
+                  key={plan.id.toString()}
+                  draggableId={plan.id.toString()}
                   index={index}
                 >
-                  {(provided) => (
+                  {(provided, snapshot) => (
                     <div
-                      className="plan-item"
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      onClick={() => openModal(plan)} // 플랜 클릭 시 모달 열림
+                      className={`plan-item ${
+                        snapshot.isDragging ? "dragging" : ""
+                      }`}
                     >
-                      <div>
-                        <h3>{plan.title}</h3>
-                        <p>{plan.date}</p>
-                        <p>{plan.description}</p>
-                      </div>
+                      <PlanListItem
+                        title={plan.title} // Use the correct fields from DatePlan
+                        description={plan.description}
+                        date={plan.date}
+                        onClick={() => handleItemClick(plan)}
+                      />
+                      <img
+                        src={plan.liked ? Favorite_Red : Favorite_Gray}
+                        alt="Favorite"
+                        className="favorite-icon"
+                        onClick={() => handleToggleLike(plan.id)}
+                      />
                     </div>
                   )}
                 </Draggable>
@@ -143,15 +176,11 @@ const PlanListAPI: React.FC = () => {
           )}
         </Droppable>
       </DragDropContext>
-
-      {/* 모달이 열려있을 때 표시 */}
       {isModalOpen && (
         <EditPlanModal data={modalData} onClose={closeModal}></EditPlanModal>
       )}
-
-      {/* 플랜 추가 버튼 */}
       <div className="add-plan-container" onClick={handleAddPlan}>
-        <AddPlan />
+        <AddPlan /> {/* Add Plan 버튼 */}
       </div>
     </div>
   );

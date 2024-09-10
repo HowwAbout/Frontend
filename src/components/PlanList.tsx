@@ -98,10 +98,10 @@ const PlanList: React.FC = () => {
                         snapshot.isDragging ? "dragging" : ""
                       }`}
                     >
-                      <PlanListItem
+                      {/* <PlanListItem
                         content={plan.content}
                         onClick={() => handleItemClick(plan)}
-                      />
+                      /> */}
                       <img
                         src={plan.liked ? Favorite_Red : Favorite_Gray}
                         alt="Favorite"
@@ -117,9 +117,9 @@ const PlanList: React.FC = () => {
           )}
         </Droppable>
       </DragDropContext>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <EditPlanModal data={modalData} onClose={closeModal}></EditPlanModal>
-      )}
+      )} */}
       <div className="add-plan-container" onClick={handleAddPlan}>
         <AddPlan /> {/* Add Plan 버튼 */}
       </div>
