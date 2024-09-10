@@ -7,10 +7,11 @@ import AIRecommendationList from "./AIRecommendationList";
 import EditPlanScheduleList from "./EditPlanScheduleList";
 
 interface AIRecommendationForm {
-  title: string;
-  description: string;
-  dateTime: string;
   activityDescription: string;
+  activityImage: string;
+  activityLocation: string;
+  activityTitle: string;
+  timeTotal: string;
 }
 
 const schedules = [
