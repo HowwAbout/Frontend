@@ -11,9 +11,14 @@ const SearchBar: React.FC<AIRecommendationProps> = ({ onSearchTextChange }) => {
   const [searchText, setSearchText] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchText(value);
-    onSearchTextChange(value); // Pass the updated searchText to the parent
+    setSearchText(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission or page reload on Enter key
+      onSearchTextChange(searchText); // Pass the searchText only when Enter is pressed
+    }
   };
 
   return (
@@ -34,6 +39,7 @@ const SearchBar: React.FC<AIRecommendationProps> = ({ onSearchTextChange }) => {
             placeholder="AI Recommendations by search"
             value={searchText}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
           <img
             src={SearchIcon}

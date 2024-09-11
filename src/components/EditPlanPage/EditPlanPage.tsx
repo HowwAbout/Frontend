@@ -52,14 +52,14 @@ const EditPlanPage: React.FC = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const sendPostRequest = async () => {
+  const sendPostRequest = async (activityDescription: string) => {
     try {
       const url = "http://3.35.149.55/ai/dating/generate"; // 실제 API URL로 변경하세요
       const data = {
         title: datePlan?.title,
         description: datePlan?.description,
         dateTime: datePlan?.date,
-        activityDescription: "맛있는 식당",
+        activityDescription,
       };
 
       const response = await axios.post(url, data, {
@@ -79,6 +79,14 @@ const EditPlanPage: React.FC = () => {
     }
   };
 
+  const handleSearchTextChange = (searchText: string) => {
+    setSearchText(searchText);
+    sendPostRequest(searchText); // Send the request when Enter key is pressed
+    console.log(
+      `Request Sended. Title : ${datePlan?.title}, Description : ${datePlan?.description}, Date : ${datePlan?.date}, ActivityDescription : ${searchText}`
+    );
+  };
+
   useEffect(() => {
     if (datePlan) {
       const formattedSchedules =
@@ -91,14 +99,6 @@ const EditPlanPage: React.FC = () => {
       setSchedules(formattedSchedules);
     }
   }, [datePlan]);
-
-  useEffect(() => {
-    sendPostRequest();
-  }, []);
-
-  useEffect(() => {
-    sendPostRequest();
-  }, [searchText]); // Trigger request when searchText changes
 
   return (
     <div className="editplanpage_contents">
@@ -113,7 +113,7 @@ const EditPlanPage: React.FC = () => {
         <EditPlanScheduleList items={schedules} />
       </div>
       <div className="editplanpage_airecommendations">
-        <AIRecommendation onSearchTextChange={setSearchText} />
+        <AIRecommendation onSearchTextChange={handleSearchTextChange} />
         <AIRecommendationList items={recommendations} />
       </div>
     </div>

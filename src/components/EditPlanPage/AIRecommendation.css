@@ -45,6 +45,7 @@ p {
   align-items: center;
   gap: 4px;
   width: 100%;
+  min-width: 600px;
   height: 100%;
   padding: 4px;
   box-sizing: border-box;

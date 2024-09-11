@@ -84,6 +84,7 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
                         activityDescription={item.activityDescription}
                         activityLocation={item.activityLocation}
                         timeTotal={item.timeTotal}
+                        onClick={() => handleItemClick(item)}
                       />
                     </div>
                   )}
