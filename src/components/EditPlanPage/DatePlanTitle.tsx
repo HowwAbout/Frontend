@@ -14,6 +14,14 @@ export default function ImageAndTitle({
   date,
   description,
 }: ImageAndTitleProps) {
+  
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission or page reload on Enter key
+      onSearchTextChange(searchText); // Pass the searchText only when Enter is pressed
+    }
+  };
+
   return (
     <div className="dateplantitle_image-and-title">
       <div className="dateplantitle_content">

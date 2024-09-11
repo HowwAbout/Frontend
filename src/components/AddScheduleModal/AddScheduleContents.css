@@ -99,18 +99,6 @@ p {
   box-sizing: border-box;
   padding-left: 5px;
 }
-.addschedulecontents_first_input-text {
-  color: rgba(27, 31, 32, 1);
-  width: 100%;
-  height: 100%;
-  background-color: rgba(236, 230, 240, 1);
-  font-size: 16px;
-  line-height: 150%;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: small;
-  letter-spacing: 0.5px;
-}
 
 .addschedulecontents_second_input-date-picker {
   display: flex;
@@ -175,21 +163,6 @@ p {
   height: 100%;
   box-sizing: border-box;
 }
-.addschedulecontents_second_input-text {
-  position: absolute;
-  top: 13px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(236, 230, 240, 1);
-  color: rgba(27, 31, 32, 1);
-  font-size: 16px;
-  line-height: 150%;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  padding-left: 5px;
-}
 
 .addschedulecontents_second_label-text-1 {
   position: absolute;
@@ -222,14 +195,39 @@ p {
   height: 98px;
 }
 
+.addschedulecontents_first_input-text {
+  color: rgba(27, 31, 32, 1);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(236, 230, 240, 1);
+  font-size: 16px;
+  line-height: 150%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: small;
+  letter-spacing: 0.5px;
+}
+
+.addschedulecontents_second_input-text {
+  position: absolute;
+  top: 13px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(236, 230, 240, 1);
+  color: rgba(27, 31, 32, 1);
+  font-size: 16px;
+  line-height: 150%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  padding-left: 5px;
+}
+
 .addschedulecontents_first_input-text-1 input,
 .addschedulecontents_second_input-text {
   width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
   box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
-}
-
-.addschedulecontents_first_text-field-1,
-.addschedulecontents_second_text-field {
   border: none; /* 외곽선을 없애기 위한 설정 */
   outline: none; /* 포커스 시 나타나는 외곽선도 제거 */
 }

@@ -51,6 +51,19 @@ const AddScheduleContents: React.FC<AddScheduleContentsProps> = ({
     onFormChange,
   ]);
 
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.key === "Enter") {
+      onFormChange({
+        title: initialTitle,
+        location: initialLocation,
+        durationTime: initialDurationTime,
+        description: initialDescription,
+      });
+    }
+  };
+
   return (
     <>
       <div className="addschedulecontents_first_input-date-picker clip-contents">
@@ -70,6 +83,7 @@ const AddScheduleContents: React.FC<AddScheduleContentsProps> = ({
                       className="addschedulecontents_first_input-text"
                       value={initialTitle}
                       onChange={(e) => setInitialTitle(e.target.value)} // Update state when input changes
+                      onKeyDown={handleKeyPress} // Listen for the Enter key press
                     />
                   </div>
                 </div>
@@ -95,6 +109,7 @@ const AddScheduleContents: React.FC<AddScheduleContentsProps> = ({
                       className="addschedulecontents_first_input-text"
                       value={initialLocation}
                       onChange={(e) => setInitialLocation(e.target.value)}
+                      onKeyDown={handleKeyPress}
                     />
                   </div>
                 </div>
@@ -120,6 +135,7 @@ const AddScheduleContents: React.FC<AddScheduleContentsProps> = ({
                       className="addschedulecontents_first_input-text"
                       value={initialDurationTime}
                       onChange={(e) => setInitialDurationTime(e.target.value)}
+                      onKeyDown={handleKeyPress}
                     />
                   </div>
                 </div>
@@ -138,6 +154,7 @@ const AddScheduleContents: React.FC<AddScheduleContentsProps> = ({
                     className="addschedulecontents_second_input-text"
                     value={initialDescription}
                     onChange={(e) => setInitialDescription(e.target.value)}
+                    onKeyDown={handleKeyPress}
                   />
                   <div className="addschedulecontents_second_label-text-1">
                     <p className="addschedulecontents_second_label-text">
