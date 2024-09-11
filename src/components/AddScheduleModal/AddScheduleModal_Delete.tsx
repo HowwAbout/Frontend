@@ -21,7 +21,7 @@ const EditPlanModal: React.FC<EditPlanModalProps> = ({ data, onClose }) => {
     <div className="addschedule_modal-overlay" onClick={handleOverlayClick}>
       <div className="addschedule_modal-content" onClick={handleContentClick}>
         <AddScheduleHeaderDelete />
-        <AddScheduleContents />
+        {/* <AddScheduleContents /> */}
       </div>
     </div>
   );

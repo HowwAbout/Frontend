@@ -95,9 +95,9 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
           )}
         </Droppable>
       </DragDropContext>
-      {isModalOpen && (
+      {isModalOpen && modalData && (
         <AddScheduleModal
-          data={modalData}
+          aiRecommendation={modalData}
           onClose={closeModal}
         ></AddScheduleModal>
       )}
