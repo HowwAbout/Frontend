@@ -37,7 +37,7 @@ interface DatePlan {
   liked?: boolean; // Adding liked property to DatePlan type
 }
 
-const API_BASE_URL = process.env.REACT_APP_NGINX_DOMAIN;
+const API_BASE_URL = "http://43.203.119.3";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
