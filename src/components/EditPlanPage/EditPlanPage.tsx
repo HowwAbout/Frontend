@@ -38,6 +38,8 @@ interface DatePlan {
   };
 }
 
+const API_BASE_URL = process.env.REACT_APP_NGINX_DOMAIN;
+
 const EditPlanPage: React.FC = () => {
   const location = useLocation();
   const datePlan = location.state?.datePlan as DatePlan | undefined;
@@ -54,7 +56,7 @@ const EditPlanPage: React.FC = () => {
 
   const sendPostRequest = async (activityDescription: string) => {
     try {
-      const url = "http://3.35.149.55/ai/dating/generate"; // 실제 API URL로 변경하세요
+      const url = `${API_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
       const data = {
         title: datePlan?.title,
         description: datePlan?.description,
