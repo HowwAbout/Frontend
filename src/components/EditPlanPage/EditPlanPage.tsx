@@ -38,7 +38,7 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "http://43.203.119.3";
+const API_BASE_URL = "https://assemblytown.com";
 
 const EditPlanPage: React.FC = () => {
   const location = useLocation();
