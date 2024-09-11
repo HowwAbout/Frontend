@@ -221,3 +221,15 @@ p {
   width: 1388px;
   height: 98px;
 }
+
+.addschedulecontents_first_input-text-1 input,
+.addschedulecontents_second_input-text {
+  width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+  box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
+}
+
+.addschedulecontents_first_text-field-1,
+.addschedulecontents_second_text-field {
+  border: none; /* 외곽선을 없애기 위한 설정 */
+  outline: none; /* 포커스 시 나타나는 외곽선도 제거 */
+}
