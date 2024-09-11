@@ -177,7 +177,7 @@ const PlanListAPI: React.FC = () => {
         </Droppable>
       </DragDropContext>
       {isModalOpen && (
-        <EditPlanModal data={modalData} onClose={closeModal}></EditPlanModal>
+        <EditPlanModal data={modalData} onClose={closeModal} fetchDatePlans = {fetchDatePlans}></EditPlanModal>
       )}
       <div className="add-plan-container" onClick={handleAddPlan}>
         <AddPlan /> {/* Add Plan 버튼 */}

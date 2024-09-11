@@ -14,11 +14,13 @@ interface AIRecommendation {
 interface AddScheduleModalProps {
   aiRecommendation: AIRecommendation; // Data from AIRecommendationList
   onClose: () => void;
+  onAddActivity: () => void;
 }
 
 const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
   aiRecommendation,
   onClose,
+  onAddActivity,
 }) => {
   const [formData, setFormData] = useState({
     title: aiRecommendation.activityTitle,
@@ -37,30 +39,6 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
     setFormData(updatedData);
   };
 
-  const handleSubmit = async () => {
-    try {
-      // Example backend submission (you can customize the endpoint and request)
-      const response = await fetch("/api/dateActivities", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          image: "미정", // Assuming image is fixed
-        }),
-      });
-
-      const result = await response.json();
-      console.log("Backend response:", result);
-
-      // Add additional logic here, e.g., refreshing the data or closing the modal
-      onClose();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
   const handleOverlayClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     onClose();
@@ -73,7 +51,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
   return (
     <div className="addschedule_modal-overlay" onClick={handleOverlayClick}>
       <div className="addschedule_modal-content" onClick={handleContentClick}>
-        <AddScheduleHeader formData={formData} onSubmit={handleSubmit} />
+        <AddScheduleHeader formData={formData} onSubmit={onAddActivity} />
         <AddScheduleContents
           aiRecommendation={aiRecommendation}
           onFormChange={handleFormChange}

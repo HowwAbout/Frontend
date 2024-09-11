@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EditPlanScheduleItem from "./EditPlanScheduleItem";
 import "./EditPlanScheduleList.css";
@@ -6,24 +8,64 @@ import AddSchedule from "./AddSchedule";
 import AddScheduleModalDelete from "../AddScheduleModal/AddScheduleModal_Delete";
 
 interface EditPlanScheduleItemProps {
-  id: string;
+  id: number;
   title: string;
   durationTime: string;
   description: string;
+  location: string;
 }
 
 interface EditPlanScheduleListProps {
   items: EditPlanScheduleItemProps[];
+  datePlan: DatePlan;
+  addActivity: () => void;
 }
 
+interface PlanActivityResponse {
+  planActivityId: number;
+  datePlanId: number;
+  dateActivityResponse: {
+    dateActivityId: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  order: number;
+}
+
+interface DatePlan {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  planActivityResponseList: {
+    planActivities: PlanActivityResponse[];
+  };
+}
+
+const API_BASE_URL = "https://assemblytown.com";
+
 const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
+  datePlan,
   items,
+  addActivity,
 }) => {
-  const [schedules, setSchedules] = useState<EditPlanScheduleItemProps[]>([]); // Fix type here
+  const [schedules, setSchedules] = useState<EditPlanScheduleItemProps[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modalData, setModalData] = useState<EditPlanScheduleItemProps | null>(
-    null
-  ); // Fix type here
+  const [modalData, setModalData] = useState<{
+    id: number;
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  } | null>(null);
+
+  const [updatedDatePlan, setUpdatedDatePlan] = useState<DatePlan | null>(
+    datePlan
+  );
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const storedPlans = JSON.parse(
@@ -32,6 +74,19 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
     setSchedules(storedPlans);
   }, []);
 
+  const fetchData = async (): Promise<DatePlan | null> => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/api/date-plans/${datePlan.id}`
+      );
+      setUpdatedDatePlan(response.data); // Update state with fetched datePlan data
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching the updated date plan:", error);
+      return null;
+    }
+  };
+
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 
@@ -39,17 +94,41 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
     const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, reorderedItem);
 
-    setSchedules(reorderedItems); // Fix type here
+    setSchedules(reorderedItems);
   };
 
   const handleItemClick = (schedule: EditPlanScheduleItemProps) => {
-    setModalData(schedule); // Fix type here
+    setModalData({
+      id: schedule.id,
+      title: schedule.title,
+      location: schedule.location,
+      durationTime: schedule.durationTime,
+      description: schedule.description,
+    });
     setModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = async () => {
     setModalOpen(false);
     setModalData(null);
+
+    // Fetch updated data and refresh the page
+    const updatedPlan = await fetchData();
+    if (updatedPlan) {
+      const updatedItems =
+        updatedPlan.planActivityResponseList.planActivities.map(
+          (activity: PlanActivityResponse) => ({
+            id: activity.dateActivityResponse.dateActivityId,
+            title: activity.dateActivityResponse.title,
+            durationTime: activity.dateActivityResponse.durationTime,
+            description: activity.dateActivityResponse.description,
+            location: activity.dateActivityResponse.location,
+          })
+        );
+
+      setSchedules(updatedItems); // Update the schedules with the new data
+      navigate("/editplan_page", { state: { datePlan: updatedPlan } }); // Refresh page with updated data
+    }
   };
 
   const OpenAddModal = () => {
@@ -65,7 +144,7 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
               {items.map((schedule, index) => (
                 <Draggable
                   key={schedule.id}
-                  draggableId={schedule.id}
+                  draggableId={schedule.id.toString()}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -92,12 +171,13 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
           )}
         </Droppable>
       </DragDropContext>
-      <AddSchedule onClick={OpenAddModal} />
-      {isModalOpen && (
+      <AddSchedule onClick={addActivity} />
+      {isModalOpen && modalData && (
         <AddScheduleModalDelete
-          data={modalData}
+          dateActivityResponse={modalData}
           onClose={closeModal}
-        ></AddScheduleModalDelete>
+          datePlanId={datePlan.id}
+        />
       )}
     </div>
   );

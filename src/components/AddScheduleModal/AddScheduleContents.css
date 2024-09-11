@@ -206,6 +206,7 @@ p {
   font-weight: 400;
   font-size: small;
   letter-spacing: 0.5px;
+  z-index: 1000;
 }
 
 .addschedulecontents_second_input-text {

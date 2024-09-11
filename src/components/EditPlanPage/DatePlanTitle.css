@@ -84,6 +84,39 @@ p {
 .dateplantitle_headline-input,
 .dateplantitle_date-input,
 .dateplantitle_supporting-text-input {
+  width: 100%;
+  min-width: 450px; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+  box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
   border: none; /* 외곽선을 없애기 위한 설정 */
   outline: none; /* 포커스 시 나타나는 외곽선도 제거 */
+  color: rgba(73, 69, 79, 1);
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.dateplantitle_headline-input {
+  color: rgba(27, 31, 32, 1);
+  font-size: 22px;
+  line-height: 127%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.dateplantitle_date-input {
+  color: rgba(73, 69, 79, 1);
+  font-size: 14px;
+  line-height: 143%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.dateplantitle_supporting-text-inputd {
+  color: rgba(73, 69, 79, 1);
+  font-size: 14px;
+  line-height: 143%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }

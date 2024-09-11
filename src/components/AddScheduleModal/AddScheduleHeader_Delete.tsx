@@ -4,15 +4,28 @@ import ConfirmAndAddtoScheduleButton from "../../assets/icons/ConfirmandAddtosch
 import DeleteButton from "../../assets/icons/DeleteButton.svg";
 import "./AddScheduleHeader.css";
 
-export default function TextAndImage() {
+interface AddScheduleHeaderProps {
+  formData: {
+    title: string;
+    location: string;
+    durationTime: string;
+    description: string;
+  };
+  onSubmit: () => void; // Callback function to trigger the form submission
+  PlanDelete: () => void;
+}
+
+const TextAndImage: React.FC<AddScheduleHeaderProps> = ({
+  formData,
+  onSubmit,
+  PlanDelete,
+}) => {
   return (
     <div className="addscheduleheader_text-and-image">
       <div className="addscheduleheader_group-6">
         <div className="addscheduleheader_content">
           <div className="addscheduleheader_title-description">
-            <p className="addscheduleheader_title">
-              Date Activity Name (= Title)
-            </p>
+            <p className="addscheduleheader_title">{formData.title}</p>
           </div>
           <div className="addscheduleheader_leading-trailing-icons">
             <img
@@ -21,9 +34,8 @@ export default function TextAndImage() {
               className="addscheduleheader_edit-note"
             />
             <div className="addscheduleheader_leading">
-              <p className="addscheduleheader_date">Today</p>
-              <p className="addscheduleheader_separator">•</p>
-              <p className="addscheduleheader_time">23 min</p>
+              <p className="addscheduleheader_time">{formData.location}</p>
+              <p className="addscheduleheader_date">{formData.durationTime}</p>
             </div>
           </div>
         </div>
@@ -33,13 +45,17 @@ export default function TextAndImage() {
           src={DeleteButton}
           alt="Not Found"
           className="addscheduleheader_delete-button"
+          onClick={PlanDelete}
         />
         <img
           src={ConfirmAndAddtoScheduleButton}
           alt="Not Found"
           className="addscheduleheader_edit-button"
+          onClick={onSubmit}
         />
       </div>
     </div>
   );
-}
+};
+
+export default TextAndImage;

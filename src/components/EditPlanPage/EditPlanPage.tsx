@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./EditPlanPage.css";
 import axios from "axios";
 import DatePlanTitle from "../EditPlanPage/DatePlanTitle";
@@ -39,24 +40,36 @@ interface DatePlan {
 }
 
 const API_BASE_URL = "https://assemblytown.com";
+const AI_BASE_URL = "http://43.203.252.59:8000";
 
 const EditPlanPage: React.FC = () => {
   const location = useLocation();
   const datePlan = location.state?.datePlan as DatePlan | undefined;
 
+  const [updatedDatePlan, setUpdatedDatePlan] = useState<DatePlan | null>();
   const [recommendations, setRecommendations] = useState<
     AIRecommendationForm[]
   >([]);
 
   const [schedules, setSchedules] = useState<
-    { id: string; title: string; durationTime: string; description: string }[]
+    {
+      id: number;
+      title: string;
+      durationTime: string;
+      description: string;
+      location: string;
+    }[]
   >([]);
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [searchText, setSearchText] = useState("");
 
+  const [activities, setActivities] = useState([]);
+
   const sendPostRequest = async (activityDescription: string) => {
     try {
-      const url = `${API_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
+      const url = `${AI_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
       const data = {
         title: datePlan?.title,
         description: datePlan?.description,
@@ -81,6 +94,29 @@ const EditPlanPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchActivities = async () => {
+      if (!datePlan?.id) {
+        console.error("datePlan is undefined or has no ID");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `https://assemblytown.com/api/date-plans/${datePlan.id}/activities`
+        );
+        setActivities(response.data);
+        console.log("Fetched activities:", response.data);
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+      }
+    };
+
+    if (datePlan?.id) {
+      fetchActivities();
+    }
+  }, [datePlan?.id]);
+
   const handleSearchTextChange = (searchText: string) => {
     setSearchText(searchText);
     sendPostRequest(searchText); // Send the request when Enter key is pressed
@@ -93,14 +129,89 @@ const EditPlanPage: React.FC = () => {
     if (datePlan) {
       const formattedSchedules =
         datePlan.planActivityResponseList.planActivities.map((activity) => ({
-          id: activity.dateActivityResponse.dateActivityId.toString(),
+          id: activity.dateActivityResponse.dateActivityId,
           title: activity.dateActivityResponse.title,
           durationTime: activity.dateActivityResponse.durationTime,
           description: activity.dateActivityResponse.description,
+          location: activity.dateActivityResponse.location,
         }));
       setSchedules(formattedSchedules);
     }
   }, [datePlan]);
+
+  const fetchData = async (): Promise<DatePlan | null> => {
+    if (!datePlan?.id) {
+      console.error("datePlan is undefined or has no ID");
+      return null; // 또는 적절한 예외 처리
+    }
+
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/api/date-plans/${datePlan.id}`
+      );
+      setUpdatedDatePlan(response.data); // Update state with fetched datePlan data
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching the updated date plan:", error);
+      return null;
+    }
+  };
+
+  const AddActivity = async () => {
+    try {
+      const activityData = {
+        title: "New Activity",
+        location: "Location",
+        durationTime: "durationTime",
+        description: "description",
+        image: "image",
+      };
+
+      // POST request
+      const response = await axios.post(
+        `${API_BASE_URL}/api/dateActivities`,
+        activityData
+      );
+
+      console.log("Activity added successfully:", response.data);
+
+      if (datePlan?.id) {
+        const response_post = await axios.post(
+          `${API_BASE_URL}/api/plan-activities/${datePlan.id}`,
+          {
+            dateActivityId: response.data.dateActivityId,
+            order: datePlan?.planActivityResponseList.planActivities.length + 1,
+          }
+        );
+        console.log(
+          "Activity linked to the plan successfully:",
+          response_post.data
+        );
+      }
+      // Fetch updated data and update items
+      const updatedPlan = await fetchData();
+      if (updatedPlan) {
+        const updatedItems =
+          updatedPlan.planActivityResponseList.planActivities.map(
+            (activity: PlanActivityResponse) => ({
+              id: activity.dateActivityResponse.dateActivityId,
+              title: activity.dateActivityResponse.title,
+              durationTime: activity.dateActivityResponse.durationTime,
+              description: activity.dateActivityResponse.description,
+              location: activity.dateActivityResponse.location,
+            })
+          );
+
+        setSchedules(updatedItems);
+        setUpdatedDatePlan(updatedPlan);
+        console.log("Items and datePlan updated:", updatedItems);
+
+        navigate("/editplan_page", { state: { datePlan: updatedPlan } });
+      }
+    } catch (error) {
+      console.error("Error adding activity:", error);
+    }
+  };
 
   return (
     <div className="editplanpage_contents">
@@ -115,11 +226,23 @@ const EditPlanPage: React.FC = () => {
         )}
       </div>
       <div className="editplanschedulelist_container">
-        <EditPlanScheduleList items={schedules} />
+        {datePlan?.id && (
+          <EditPlanScheduleList
+            datePlan={datePlan}
+            items={schedules}
+            addActivity={AddActivity}
+          />
+        )}
       </div>
       <div className="editplanpage_airecommendations">
         <AIRecommendation onSearchTextChange={handleSearchTextChange} />
-        <AIRecommendationList items={recommendations} />
+        {datePlan && (
+          <AIRecommendationList
+            items={recommendations}
+            id={datePlan.id}
+            addActivity={AddActivity}
+          />
+        )}
       </div>
     </div>
   );

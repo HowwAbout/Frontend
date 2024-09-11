@@ -31,9 +31,13 @@ interface DatePlan {
 
 interface EditPlanHeaderProps {
   data: DatePlan;
+  handleDeletePlan: () => void;
 }
 
-const EditPlanHeader: React.FC<EditPlanHeaderProps> = ({ data }) => {
+const EditPlanHeader: React.FC<EditPlanHeaderProps> = ({
+  data,
+  handleDeletePlan,
+}) => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleEditClick = () => {
@@ -63,15 +67,16 @@ const EditPlanHeader: React.FC<EditPlanHeaderProps> = ({ data }) => {
             </div>
             <div className="editplan_buttons">
               <img
+                src={DeleteButton}
+                alt="Not Found"
+                className="editplan_delete-button"
+                onClick={handleDeletePlan}
+              />
+              <img
                 src={EditButton}
                 alt="Not Found"
                 className="editplan_edit-button"
                 onClick={handleEditClick}
-              />
-              <img
-                src={DeleteButton}
-                alt="Not Found"
-                className="editplan_delete-button"
               />
             </div>
           </div>

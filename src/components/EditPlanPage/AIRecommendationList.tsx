@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AIRecommendationItem from "./AIRecommendationItem"; // Adjust the import path as necessary
 import "./AIRecommendationList.css"; // Ensure to style the list if needed
@@ -15,10 +16,14 @@ interface AIRecommendationListProps {
 
 interface EditPlanScheduleListProps {
   items: AIRecommendationListProps[];
+  id: number;
+  addActivity: () => void;
 }
 
 const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
   items,
+  id,
+  addActivity,
 }) => {
   const [recommendations, setRecommendations] = useState<
     AIRecommendationListProps[]
@@ -54,6 +59,46 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
   const closeModal = () => {
     setModalOpen(false);
     setModalData(null);
+  };
+
+  const AddActivity = async () => {
+    if (!modalData) return; // Ensure there's modal data to send
+
+    try {
+      const activityData = {
+        title: modalData.activityTitle,
+        location: modalData.activityLocation,
+        durationTime: modalData.timeTotal,
+        description: modalData.activityDescription,
+        image: modalData.activityImage, // Use the provided image
+      };
+
+      // First POST request to create a new activity
+      const response = await axios.post(
+        `https://assemblytown.com/api/dateActivities`,
+        activityData
+      );
+      const newActivityId = response.data.dateActivityId;
+
+      // Second POST request to link the activity to the plan
+      const response_post = await axios.post(
+        `https://assemblytown.com/api/plan-activities/${id}`, // Use the provided datePlan.id
+        {
+          dateActivityId: newActivityId,
+          order: recommendations.length + 1, // Use the length of the current recommendations
+        }
+      );
+
+      console.log(
+        "Activity linked to the plan successfully:",
+        response_post.data
+      );
+
+      // You can fetch updated data if necessary
+      closeModal();
+    } catch (error) {
+      console.error("Error adding activity:", error);
+    }
   };
 
   return (
@@ -99,6 +144,7 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
         <AddScheduleModal
           aiRecommendation={modalData}
           onClose={closeModal}
+          onAddActivity={addActivity}
         ></AddScheduleModal>
       )}
     </div>

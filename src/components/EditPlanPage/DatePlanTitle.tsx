@@ -21,21 +21,43 @@ export default function ImageAndTitle({
   const [date, setDate] = useState(initialDate);
   const [description, setDescription] = useState(initialDescription);
 
+  const fetchDatePlan = async () => {
+    try {
+      const response = await axios.get(
+        `https://assemblytown.com/api/date-plans/${id}`
+      );
+      const { title, date, description } = response.data;
+
+      // 가져온 데이터를 상태에 반영
+      setTitle(title);
+      setDate(date);
+      setDescription(description);
+      console.log("Fetched date plan:", response.data);
+    } catch (error) {
+      console.error("Error fetching the date plan:", error);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`/api/date-plans/${id}`, {
-        title,
-        date,
-        description,
-      });
+      const response = await axios.put(
+        `https://assemblytown.com/api/date-plans/${id}`,
+        {
+          title,
+          date,
+          description,
+          image: "미정",
+        }
+      );
       console.log("Successfully updated:", response.data);
+      await fetchDatePlan();
     } catch (error) {
       console.error("Error updating the date plan:", error);
     }
   };
 
   const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement>,
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string
   ) => {
     if (event.key === "Enter") {
@@ -76,8 +98,7 @@ export default function ImageAndTitle({
             </p>
           </div>
           <p className="dateplantitle_supporting-text">
-            <input
-              type="text"
+            <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => handleKeyDown(e, "description")}

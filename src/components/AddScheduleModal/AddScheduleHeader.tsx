@@ -70,7 +70,7 @@ const TextAndImage: React.FC<AddScheduleHeaderProps> = ({ formData, onSubmit }) 
           src={ConfirmAndAddtoScheduleButton}
           alt="Not Found"
           className="addscheduleheader_edit-button"
-          onClick={handleSubmit}
+          onClick={onSubmit}
         />
       </div>
     </div>
