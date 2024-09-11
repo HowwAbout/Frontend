@@ -80,3 +80,10 @@ p {
   font-weight: 400;
   letter-spacing: 0.3px;
 }
+
+.dateplantitle_headline-input,
+.dateplantitle_date-input,
+.dateplantitle_supporting-text-input {
+  border: none; /* 외곽선을 없애기 위한 설정 */
+  outline: none; /* 포커스 시 나타나는 외곽선도 제거 */
+}

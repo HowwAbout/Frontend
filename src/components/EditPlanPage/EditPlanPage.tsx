@@ -105,11 +105,14 @@ const EditPlanPage: React.FC = () => {
   return (
     <div className="editplanpage_contents">
       <div className="dateplantitle_container">
-        <DatePlanTitle
-          title={datePlan?.title ?? "Undefined"}
-          date={datePlan?.date ?? "Undefined"}
-          description={datePlan?.description ?? "Undefined"}
-        />
+        {datePlan && datePlan.id && (
+          <DatePlanTitle
+            id={datePlan.id}
+            title={datePlan?.title ?? "Undefined"}
+            date={datePlan?.date ?? "Undefined"}
+            description={datePlan?.description ?? "Undefined"}
+          />
+        )}
       </div>
       <div className="editplanschedulelist_container">
         <EditPlanScheduleList items={schedules} />
