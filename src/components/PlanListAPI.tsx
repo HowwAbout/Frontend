@@ -37,7 +37,7 @@ interface DatePlan {
   liked?: boolean; // Adding liked property to DatePlan type
 }
 
-const API_BASE_URL = "https://assemblytown.com";
+const API_BASE_URL = "http://assemblytown.com";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
@@ -57,7 +57,7 @@ const PlanListAPI: React.FC = () => {
     setLoading(true); // Set loading to true before fetching data
     try {
       const response = await axios.get<DatePlan[]>(
-        `https://assemblytown.com/api/date-plans`
+        `http://assemblytown.com/api/date-plans`
       );
       setPlans(response.data);
     } catch (error) {
