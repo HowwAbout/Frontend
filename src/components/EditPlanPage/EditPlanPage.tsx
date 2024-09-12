@@ -69,7 +69,7 @@ const EditPlanPage: React.FC = () => {
 
   const sendPostRequest = async (activityDescription: string) => {
     try {
-      const url = `${AI_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
+      const url = `${API_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
       const data = {
         title: datePlan?.title,
         description: datePlan?.description,
