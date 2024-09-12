@@ -52,7 +52,7 @@ const EditPlanModal: React.FC<EditPlanModalProps> = ({
     if (data && data.id) {
       try {
         await axios.delete(
-          `http://assemblytown.com/api/date-plans/${data.id}`
+          `https://assemblytown.com/api/date-plans/${data.id}`
         );
         onClose(); // 모달을 닫음
         fetchDatePlans(); // 최신 데이터 가져옴

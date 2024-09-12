@@ -37,7 +37,7 @@ interface DatePlan {
   liked?: boolean; // Adding liked property to DatePlan type
 }
 
-const API_BASE_URL = "http://assemblytown.com";
+const API_BASE_URL = "https://assemblytown.com";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);
@@ -57,7 +57,7 @@ const PlanListAPI: React.FC = () => {
     setLoading(true); // Set loading to true before fetching data
     try {
       const response = await axios.get<DatePlan[]>(
-        `${API_BASE_URL}/api/date-plans`
+        `https://assemblytown.com/api/date-plans`
       );
       setPlans(response.data);
     } catch (error) {
@@ -177,7 +177,11 @@ const PlanListAPI: React.FC = () => {
         </Droppable>
       </DragDropContext>
       {isModalOpen && (
-        <EditPlanModal data={modalData} onClose={closeModal} fetchDatePlans = {fetchDatePlans}></EditPlanModal>
+        <EditPlanModal
+          data={modalData}
+          onClose={closeModal}
+          fetchDatePlans={fetchDatePlans}
+        ></EditPlanModal>
       )}
       <div className="add-plan-container" onClick={handleAddPlan}>
         <AddPlan /> {/* Add Plan 버튼 */}

@@ -63,7 +63,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
       const { id, ...dataToSend } = formData;
 
       const response = await axios.put(
-        `http://assemblytown.com/api/dateActivities/${dateActivityResponse.id}`, // Use the dateActivityId from the response
+        `https://assemblytown.com/api/dateActivities/${dateActivityResponse.id}`, // Use the dateActivityId from the response
         {
           ...dataToSend,
           image: "미정", // Assuming the image is fixed
@@ -82,7 +82,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
   const PlanDelete = async () => {
     try {
       await axios.delete(
-        `http://assemblytown.com/api/dateActivities/${dateActivityResponse.id}`
+        `https://assemblytown.com/api/dateActivities/${dateActivityResponse.id}`
       );
       console.log("Plan Deleted");
       onClose();

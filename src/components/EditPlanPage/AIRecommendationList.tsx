@@ -75,14 +75,14 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
 
       // First POST request to create a new activity
       const response = await axios.post(
-        `http://assemblytown.com/api/dateActivities`,
+        `https://assemblytown.com/api/dateActivities`,
         activityData
       );
       const newActivityId = response.data.dateActivityId;
 
       // Second POST request to link the activity to the plan
       const response_post = await axios.post(
-        `http://assemblytown.com/api/plan-activities/${id}`, // Use the provided datePlan.id
+        `https://assemblytown.com/api/plan-activities/${id}`, // Use the provided datePlan.id
         {
           dateActivityId: newActivityId,
           order: recommendations.length + 1, // Use the length of the current recommendations
