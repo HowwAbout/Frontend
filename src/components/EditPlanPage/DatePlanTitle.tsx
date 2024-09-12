@@ -24,7 +24,7 @@ export default function ImageAndTitle({
   const fetchDatePlan = async () => {
     try {
       const response = await axios.get(
-        `http://assemblytown.com/api/date-plans/${id}`
+        `http://3.34.253.186/api/date-plans/${id}`
       );
       const { title, date, description } = response.data;
 
@@ -41,7 +41,7 @@ export default function ImageAndTitle({
   const handleSubmit = async () => {
     try {
       const response = await axios.put(
-        `http://assemblytown.com/api/date-plans/${id}`,
+        `http://3.34.253.186/api/date-plans/${id}`,
         {
           title,
           date,

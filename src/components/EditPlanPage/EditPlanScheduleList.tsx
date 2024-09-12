@@ -44,8 +44,6 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "http://assemblytown.com";
-
 const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
   datePlan,
   items,
@@ -77,7 +75,7 @@ const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
   const fetchData = async (): Promise<DatePlan | null> => {
     try {
       const response = await axios.get(
-        `http://assemblytown.com/api/date-plans/${datePlan.id}`
+        `http://3.34.253.186/api/date-plans/${datePlan.id}`
       );
       setUpdatedDatePlan(response.data); // Update state with fetched datePlan data
       return response.data;

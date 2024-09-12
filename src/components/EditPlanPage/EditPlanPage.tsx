@@ -39,8 +39,8 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "http://assemblytown.com";
-const AI_BASE_URL = "http://43.203.252.59:8000";
+const API_BASE_URL = "http://3.34.253.186";
+const AI_BASE_URL = "https://assemblytown.com";
 
 const EditPlanPage: React.FC = () => {
   const location = useLocation();
@@ -69,7 +69,7 @@ const EditPlanPage: React.FC = () => {
 
   const sendPostRequest = async (activityDescription: string) => {
     try {
-      const url = `${API_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
+      const url = `${AI_BASE_URL}/ai/dating/generate`; // 실제 API URL로 변경하세요
       const data = {
         title: datePlan?.title,
         description: datePlan?.description,
@@ -103,7 +103,7 @@ const EditPlanPage: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `http://assemblytown.com/api/date-plans/${datePlan.id}/activities`
+          `http://3.34.253.186/api/date-plans/${datePlan.id}/activities`
         );
         setActivities(response.data);
         console.log("Fetched activities:", response.data);
@@ -147,7 +147,7 @@ const EditPlanPage: React.FC = () => {
 
     try {
       const response = await axios.get(
-        `http://assemblytown.com/api/date-plans/${datePlan.id}`
+        `http://3.34.253.186/api/date-plans/${datePlan.id}`
       );
       setUpdatedDatePlan(response.data); // Update state with fetched datePlan data
       return response.data;
