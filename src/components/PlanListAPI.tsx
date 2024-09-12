@@ -37,7 +37,7 @@ interface DatePlan {
   liked?: boolean; // Adding liked property to DatePlan type
 }
 
-const API_BASE_URL = "https://assemblytown.com";
+const API_BASE_URL = "http://assemblytown.com";
 
 const PlanListAPI: React.FC = () => {
   const [plans, setPlans] = useState<DatePlan[]>([]);

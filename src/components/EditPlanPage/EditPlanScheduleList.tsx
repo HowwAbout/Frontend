@@ -44,7 +44,7 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "https://assemblytown.com";
+const API_BASE_URL = "http://assemblytown.com";
 
 const EditPlanScheduleList: React.FC<EditPlanScheduleListProps> = ({
   datePlan,

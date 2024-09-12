@@ -39,7 +39,7 @@ interface DatePlan {
   };
 }
 
-const API_BASE_URL = "https://assemblytown.com";
+const API_BASE_URL = "http://assemblytown.com";
 const AI_BASE_URL = "http://43.203.252.59:8000";
 
 const EditPlanPage: React.FC = () => {
@@ -103,7 +103,7 @@ const EditPlanPage: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `https://assemblytown.com/api/date-plans/${datePlan.id}/activities`
+          `http://assemblytown.com/api/date-plans/${datePlan.id}/activities`
         );
         setActivities(response.data);
         console.log("Fetched activities:", response.data);
