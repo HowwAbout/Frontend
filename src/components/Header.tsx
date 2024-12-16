@@ -7,7 +7,7 @@ export default function Content() {
       <div className="header clip-contents">
         <div className="header_title-subtitle">
           <p className="header_caption">Introduction</p>
-          <p className="header_title">Username</p>
+          <p className="header_title">Threethreeohoh</p>
         </div>
       </div>
     </div>

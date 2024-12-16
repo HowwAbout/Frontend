@@ -51,14 +51,10 @@ const App: React.FC = () => {
   }, [schedules]);
 
   return (
-    <div className="app-container">
-      <Sidebar />
-      <div className="main-content">
-        <MenuBar />
-        <Header />
-        <PlanListAPI />
-        {/* <PlanList /> */}
-      </div>
+    <div className="main-content">
+      <MenuBar />
+      <Header />
+      <PlanListAPI />
     </div>
   );
 };

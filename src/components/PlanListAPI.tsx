@@ -160,6 +160,7 @@ const PlanListAPI: React.FC = () => {
                         description={plan.description}
                         date={plan.date}
                         onClick={() => handleItemClick(plan)}
+                        index={index}
                       />
                       <img
                         src={plan.liked ? Favorite_Red : Favorite_Gray}
