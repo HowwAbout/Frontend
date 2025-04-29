@@ -1,0 +1,122 @@
+/* List item 01 */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+p {
+  margin: 0;
+}
+
+.editplanscheduleitem_list-item-01 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: auto; /* 고정 높이를 없애고, 컨텐츠에 맞게 자동 조정 */
+  min-height: 120px; /* 최소 높이는 유지 */
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+.editplanscheduleitem_text-and-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.editplanscheduleitem_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.editplanscheduleitem_title-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.editplanscheduleitem_title {
+  color: rgba(27, 31, 32, 1);
+  font-size: 22px;
+  line-height: 127%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.editplanscheduleitem_secondary-text {
+  color: rgba(73, 69, 79, 1);
+  font-size: 14px;
+  line-height: 143%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.editplanscheduleitem_leading-trailing-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 212px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.editplanscheduleitem_leading {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  width: 372px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.editplanscheduleitem_icon {
+  width: 24px;
+  height: 100%;
+}
+
+.editplanscheduleitem_date {
+  color: rgba(73, 69, 79, 1);
+  font-size: 12px;
+  line-height: 133%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+.editplanscheduleitem_separator {
+  color: rgba(73, 69, 79, 1);
+  font-size: 12px;
+  line-height: 133%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+.editplanscheduleitem_time {
+  color: rgba(73, 69, 79, 1);
+  font-size: 12px;
+  line-height: 133%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+.editplanscheduleitem_icon-1 {
+  width: 24px;
+  height: 100%;
+}

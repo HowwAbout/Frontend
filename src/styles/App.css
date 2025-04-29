@@ -1,0 +1,80 @@
+body {
+  --pastel_purple_first: #ae8be6;
+  --pastel_purple_second: #e8def8;
+}
+
+.app {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.introduction {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.schedule-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.schedule-item {
+  background: white;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.schedule-details {
+  font-size: 14px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.add-schedule-button {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-schedule-button:hover {
+  background-color: #3700b3;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 70px; /* Sidebar width */
+}
+
+.main-content {
+  flex-grow: 1;
+  max-width: calc(100% - 70px); /* Sidebar를 제외한 나머지 영역 */
+  margin-left: 70px; /* Sidebar 크기만큼 왼쪽에 마진 추가 */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소를 수직 축에서 중앙 정렬 */
+  margin: 0 auto; /* 수평 중앙 정렬 */
+}

@@ -1,0 +1,58 @@
+/* Add list */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+p {
+  margin: 0;
+}
+
+.add-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 580px;
+  height: 120px;
+  box-sizing: border-box;
+}
+.forms-add-on {
+  width: 80px;
+  height: 80px;
+}
+
+.state-layer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 110px;
+  height: 40px;
+  padding: 0px 16px 0px;
+  box-sizing: border-box;
+}
+.content {
+  position: absolute;
+  top: 0px;
+  left: -12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 134px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(27, 31, 32, 1);
+  font-size: 16px;
+  line-height: 150%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.5px;
+}

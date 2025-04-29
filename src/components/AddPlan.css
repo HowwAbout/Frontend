@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+p {
+  margin: 0;
+}
+
+.addplan_group-11 {
+  width: 207px;
+  height: 94px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+.addplan_group-975 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.addplan_vector {
+  width: 94px;
+  height: 100%;
+  background-image: url("../assets/icons/AddPlan_Gray.svg");
+  transition: 0.2s ease-in;
+}
+
+.addplan_vector:hover {
+  background-image: url("../assets/icons/AddPlan_Purple.svg");
+}
+
+.add-plan {
+  color: rgba(29, 27, 32, 1);
+  font-size: 22px;
+  line-height: 127%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}

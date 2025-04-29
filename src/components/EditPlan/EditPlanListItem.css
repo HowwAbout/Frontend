@@ -1,0 +1,52 @@
+/* List item 1 */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+p {
+  margin: 0;
+}
+
+.editplanitem_list-item-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+  background-color: rgba(254, 247, 255, 1);
+}
+.editplanitem_state-layer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 40px;
+  padding: 0px 16px 0px;
+  box-sizing: border-box;
+}
+.editplanitem_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.editplanitem_headline {
+  color: rgba(27, 31, 32, 1);
+  font-size: 16px;
+  line-height: 150%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.editplanitem_trailing-element {
+  gap: 10px;
+  width: 48px;
+  height: 48px;
+}

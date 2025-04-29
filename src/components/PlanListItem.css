@@ -1,0 +1,61 @@
+/* State-layer */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+p {
+  margin: 0;
+}
+
+.planlist_state-layer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  width: 80vw;
+  height: 120px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+.leading-element {
+  width: 80px;
+  height: 80px;
+}
+
+.planlist_content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  width: 1688px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.planlist_headline {
+  color: rgba(29, 27, 32, 1);
+  font-size: 22px;
+  line-height: 127%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.planlist_category {
+  color: rgba(73, 69, 79, 1);
+  font-size: 14px;
+  line-height: 143%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.planlist_date,
+.planlist_supporting-text {
+  color: rgba(73, 69, 79, 1);
+  font-size: 14px;
+  line-height: 143%;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
